@@ -21,6 +21,10 @@ Open the localhost address printed by the terminal. Ctrl+C stops the server. Che
 
 The first visit seeds ONE $100 Allowance income dated today. Use fictional transactions. Log means record a transaction, not log in.
 
+## GitHub Pages
+
+The GitHub Actions workflow builds and deploys the site at `https://ramirodeassis3214-cell.github.io/jarvis-finance-starter/`. The repository must have Pages configured to use **GitHub Actions** as its build and deployment source. The site is static: the `/api/classify` server endpoint is not hosted by GitHub Pages, so live advisor requests require deploying the Node server separately and configuring the API route.
+
 ## Teacher reference components
 
 `teacher/Charts.tsx`, `teacher/Goal.tsx` and `teacher/Advisor.tsx` are fallback examples. Copy only the needed file's contents into the corresponding `src/components` file. The examples' relative imports are designed for that destination. Students implement one module at a time with PROMPTS.md.
