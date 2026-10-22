@@ -6,6 +6,7 @@ import ThemeControls from './components/ThemeControls';
 import Charts from './components/Charts';
 import Goal from './components/Goal';
 import Advisor from './components/Advisor';
+import RotatableDashboard from './components/RotatableDashboard';
 const categories=['Food','Transport','Learning','Entertainment','Other'];
 const seed=():Transaction[]=>[{id:'initial',date:today(),item:'Allowance',kind:'income',cents:10000,category:'Other'}];
 function load():Transaction[]{try{const a=JSON.parse(localStorage.getItem('space-bank-v1')||'null');return Array.isArray(a)&&a.every(r=>r&&typeof r.id==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(r.date)&&typeof r.item==='string'&&['income','expense'].includes(r.kind)&&Number.isSafeInteger(r.cents)&&r.cents>0&&typeof r.category==='string')?a:seed();}catch{return seed();}}
@@ -26,8 +27,7 @@ export default function App(){
   setItem('');setAmount('');setEdit(null);setError('');
  }catch(e){setError((e as Error).message);}}
  function remove(id:string){const next=rows.filter(r=>r.id!==id);if(balance(next)<0){setError('Removing this income would make the balance negative. Review the related expenses first.');return;}setRows(next);setEvent(null);if(edit===id){setEdit(null);setItem('');setAmount('');}}
- // TODO(STUDENT-UI): Customise the controller name and accent; preserve transaction logic.
- return <main><header><span className="tag">AI FUTURE CREATORS / LAB 03</span><h1>JARVIS Allowance Controller</h1><p>PERSONAL FINANCE INTERFACE · Track cash flow. Understand your choices.</p></header>
+ return <RotatableDashboard><main><header><span className="tag">AI FUTURE CREATORS / LAB 03</span><h1>Bank</h1><p>PERSONAL FINANCE INTERFACE · Track cash flow. Understand your choices.</p></header>
  <ThemeControls/><HudCore cents={cents} event={event} transactions={rows.length}/>
  <section className="card"><h2>{edit?'Edit transaction':'Log a transaction'}</h2><form onSubmit={submit}>
  <label>Date<input type="date" value={date} onChange={e=>setDate(e.target.value)} required/></label>
@@ -41,5 +41,5 @@ export default function App(){
  {rows.map(r=><tr key={r.id}><td>{r.date}</td><td>{r.item}</td><td>{r.category}</td><td>{r.kind==='income'?'Income':'Expense'}</td><td className={r.kind}>{r.kind==='income'?'+':'−'}{money(r.cents)}</td><td><button className="small" onClick={()=>{setEdit(r.id);setDate(r.date);setItem(r.item);setAmount((r.cents/100).toFixed(2));setKind(r.kind);setCategory(r.category);}}>Edit</button><button className="small" onClick={()=>remove(r.id)}>Delete</button></td></tr>)}
  {!rows.length&&<tr><td colSpan={6}>No transactions yet. Log your first income.</td></tr>}</tbody></table></div></section>
  <Charts rows={rows}/><Goal rows={rows}/><Advisor rows={rows}/>
- <footer>Keep a clear record. Make your own spending decisions.</footer></main>;
+ <footer>Keep a clear record. Make your own spending decisions.</footer></main></RotatableDashboard>;
 }

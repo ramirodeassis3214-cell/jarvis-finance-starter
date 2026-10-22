@@ -27,7 +27,7 @@ The first visit seeds ONE $100 Allowance income dated today. Use fictional trans
 
 ## AI configuration — teacher only
 
-Copy .env.example to .env. Default AI_MODE=mock returns a clearly labelled fixed English example. For real calls set AI_MODE=live, GEMINI_API_KEY and an available GEMINI_MODEL; restart the server. Do not put keys in browser code, VITE_ variables, Git or prompts. Real calls need a valid model, key, quota and network; no live call was tested with your private key.
+Copy .env.example to .env. Default AI_MODE=mock returns a clearly labelled fixed English example. To use OpenAI, configure AI_PROVIDER=openai, OPENAI_API_KEY and OPENAI_MODEL (for example, o4-mini), then set AI_MODE=live and restart the server. Alternatively, set AI_PROVIDER=gemini and configure GEMINI_API_KEY and GEMINI_MODEL. Keep credentials only in the ignored server-side .env file; never put keys in browser code, VITE_ variables, Git or prompts. Revoke any key exposed in chat or source control and replace it before enabling live mode. Real calls require a valid provider key, model access, quota and network. Live mode reports provider failures and never falls back to mock success.
 
 All generated advice is requested in English. The student retains the final judgment. The local server listens on localhost; this is not a deployed payment/banking service.
 
@@ -40,3 +40,4 @@ Transactions use integer cents and browser localStorage. Accent is saved under j
 https://github.com/recharts/recharts
 https://googleapis.github.io/js-genai/
 https://ai.google.dev/gemini-api/docs/generate-content/structured-output
+https://platform.openai.com/docs/api-reference/responses
